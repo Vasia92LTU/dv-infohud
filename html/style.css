@@ -1,0 +1,190 @@
+/* Base reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif; /* Modern font */
+    background-color: transparent;
+}
+
+#hud {
+    position: absolute;
+    top: 20px; /* Adjust the top position of the entire column */
+    right: 20px; /* Align the column to the right side of the screen */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack elements vertically */
+    gap: 10px; /* Space between the bars */
+    text-align: right; /* Align text to the right */
+}
+
+/* Positioning server-id as fixed */
+#server-id {
+    position: fixed; /* Fixed position to stay in the same spot on the screen */
+    top: 110px; /* Adjust this to move it up or down */
+    left: 1826px; /* Adjust this to move it left or right */
+    padding: 3px 10px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    overflow: visible; /* Allow content to be visible outside */
+    transition: background 0.3s ease;
+    min-width: 50px;
+    background: linear-gradient(to left, rgba(1, 88, 71, 0.90), rgba(1, 88, 71, 0.00)); /* Gradient from right to left */
+    border: 2px solid transparent;
+    border-image: linear-gradient(to left, rgba(4, 255, 199, 0.9), rgba(4, 255, 199, 0));
+    border-image-slice: 1;
+}
+
+/* Small font styling for server-id label */
+#server-id::after {
+    content: 'ID'; /* Label for the server ID bar */
+    position: absolute;
+    bottom: -8px; /* Position to make half of the text outside the bar */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, 0); /* Center horizontally without moving vertically */
+    font-size: 12px; /* Increased font size for better visibility */
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 3; /* Ensure it stays on top of everything */
+    pointer-events: none; /* Make sure the text doesn't interfere with clicks */
+}
+
+#job-bar, #cash-label, #bank-label, #ammo-label {
+    padding: 3px 10px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    position: relative;
+    overflow: visible; /* Allow labels to be visible outside the bar */
+    transition: background 0.3s ease;
+    width: auto;
+    min-width: 50px;
+    background: linear-gradient(to left, rgba(1, 88, 71, 0.90), rgba(1, 88, 71, 0.00)); /* Gradient from right to left */
+    border: 2px solid transparent;
+    border-image: linear-gradient(to left, rgba(4, 255, 199, 0.9), rgba(4, 255, 199, 0));
+    border-image-slice: 1;
+}
+
+/* Small font labels positioned half inside and half outside the bar */
+#job-bar::after,
+#cash-label::after,
+#bank-label::after,
+#ammo-label::after {
+    content: attr(data-label); /* Use data-label attribute for dynamic content */
+    position: absolute;
+    bottom: -8px; /* Position to make half of the text outside the bar */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, 0); /* Center horizontally without moving vertically */
+    font-size: 12px; /* Increased font size for better visibility */
+    color: rgba(255, 255, 255, 0.7);
+    z-index: 3; /* Ensure it stays on top of everything */
+    pointer-events: none; /* Make sure the text doesn't interfere with clicks */
+}
+
+#job-bar::after {
+    content: 'Job'; /* Label for the job bar */
+}
+
+#cash-label::after {
+    content: 'Cash'; /* Label for the cash bar */
+}
+
+#bank-label::after {
+    content: 'Bank'; /* Label for the bank bar */
+}
+
+#ammo-label::after {
+    content: 'Ammo'; /* Label for the ammo bar */
+}
+
+/* Positioning ammo-label differently */
+#ammo-label {
+    position: absolute; /* Position it independently of the main hud */
+    top: 89px; /* Adjust this to move it up or down */
+    right: 100px; /* Adjust this to move it left or right */
+    padding: 3px 10px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    overflow: visible; /* Allow content to be visible outside */
+    transition: background 0.3s ease;
+    min-width: 50px;
+    background: linear-gradient(to left, rgba(1, 88, 71, 0.90), rgba(1, 88, 71, 0.00)); /* Gradient from right to left */
+    border: 2px solid transparent;
+    border-image: linear-gradient(to left, rgba(4, 255, 199, 0.9), rgba(4, 255, 199, 0));
+    border-image-slice: 1;
+    opacity: 0; /* Start invisible */
+    animation: fadeInOut 1.5s forwards; /* Fade in/out animation */
+}
+
+#ammo-label.show {
+    animation: fadeIn 0.5s forwards; /* Trigger fade-in */
+}
+
+#ammo-label.hide {
+    animation: fadeOut 0.5s forwards; /* Trigger fade-out */
+}
+
+/* Fade-in animation keyframes */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Fade-out animation keyframes */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.hidden {
+    display: none !important; /* Hide element */
+}
+
+/* Style for icons */
+#server-id i, #job-bar i, #cash-label i, #bank-label i, #ammo-label i {
+    margin-left: 8px; /* Space between text and icon when on the right side */
+    color: #04FFC7; /* Icon color matching the gradient */
+    font-size: 22px; /* Larger icon size */
+    order: 2; /* Move icons to the end within the flex container */
+}
+
+#ammo-label i {
+    font-size: 26px; /* Slightly larger for weapon icon */
+    color: #04FFC7; /* Match the icon color with the border */
+}
+
+/* Notification styling */
+.notification {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 14px;
+    transform-origin: left center; /* Set origin for animation */
+    z-index: 1000; /* Ensure above other elements */
+    color: inherit; /* Use the text color set in the JavaScript */
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-in and transform */
+    padding: 0; /* Remove padding */
+    border: none; /* Remove border */
+    background: none; /* No background */
+    box-shadow: none; /* Remove any shadow */
+}
